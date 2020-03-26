@@ -27,15 +27,16 @@ def get_dict_from_pokemon(pokemon, request):
     return pokemon_dict
 
 def get_pokemon_evolution(pokemon, request):
-    if pokemon:
-        evolution = {
-            "pokemon_id": pokemon.id,
-            "title_ru": pokemon.title,
-            "img_url": request.build_absolute_uri(get_pokemon_img_url(pokemon))
-        }
-    else:
-        evolution = None
 
+    if not pokemon:
+        return None
+
+    evolution = {
+        "pokemon_id": pokemon.id,
+        "title_ru": pokemon.title,
+        "img_url": request.build_absolute_uri(get_pokemon_img_url(pokemon))
+    }
+    
     return evolution
 
 
@@ -83,7 +84,7 @@ def show_pokemon(request, pokemon_id):
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    for pokemon_entity in PokemonEntity.objects.filter(pokemon=pokemon):
+    for pokemon_entity in pokemon.entities.all():
         add_pokemon(
             folium_map, pokemon_entity.lat, pokemon_entity.lon,
             pokemon.title, request.build_absolute_uri(get_pokemon_img_url(pokemon)))
