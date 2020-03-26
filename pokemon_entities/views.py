@@ -22,7 +22,7 @@ def get_dict_from_pokemon(pokemon, request):
         "title_jp": pokemon.title_jp,
         "description": pokemon.description,
         "previous_evolution": get_pokemon_evolution(pokemon.previous_evolution, request),
-        "next_evolution" : get_pokemon_evolution(pokemon.next_evolution.first(), request)
+        "next_evolution" : get_pokemon_evolution(pokemon.next_evolutions.first(), request)
     }
     return pokemon_dict
 

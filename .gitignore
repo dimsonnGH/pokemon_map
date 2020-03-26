@@ -91,3 +91,6 @@ media/
 
 # PyCharm
 .idea/
+
+# this project pokemon_map
+pokemon_entities/pokemons.json
